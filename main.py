@@ -49,7 +49,7 @@ def start_keyboard():
 
 def countries_keyboard():
     kb = InlineKeyboardBuilder()
-    for country in ["Украина", "Казахстан", "Польша", "Германия", "Другая"]:
+    for country in ["Россия", "Беларусь", "Казахстан", "Азейбаржан", "Узбекистан", "Другая"]:
         kb.button(text=country, callback_data=f"country:{country}")
     kb.adjust(2)
     return kb.as_markup()
@@ -132,13 +132,21 @@ async def cmd_start(message: Message, state: FSMContext):
         return
 
     await message.answer(
-        "⚠️ <b>Важно</b>\n\n"
-        "Анкету можно пройти только один раз. "
-        "Перед отправкой проверьте введённые данные.\n\n"
-        "Продолжая, вы соглашаетесь на обработку данных "
-        "в рамках указанной в анкете цели.",
+        "🌐 <b>Алтын — удобный цифровой банк 🌐</b>\n\n"
+        "Алтын начинает набор в свой новый проект участников "
+        "на позицию <b>\"Помощник брокера по цифровым транзакциям "
+        "на международных биржах\"</b>.\n\n"
+        "Что бы узнать все подробности - нажмите <b>\"Старт\"</b> "
+        "и заполните внимательно анкету. Затем ожидайте звонка "
+        "от нашего представителя по телефону или в мессенджерах.\n\n"
+        "Важно ❗️: Анкету пройти можно лишь один раз, правильно "
+        "заполняйте данные и будьте готовы к 30 минутам общение "
+        "с представителем Алтын. Места ограничены.\n\n"
+        "САЙТ КОМПАНИИ: "
+        "<a href=\"https://altyn-wallet.com\">altyn-wallet.com</a>",
         reply_markup=start_keyboard(),
         parse_mode="HTML",
+        disable_web_page_preview=False,
     )
 
 
@@ -225,7 +233,7 @@ async def last_name_entered(message: Message, state: FSMContext):
     await state.set_state(Form.phone)
     await message.answer(
         "Введите ваш мобильный номер.\n"
-        "Например: <code>+380991234567</code>",
+        "Например: <code>+79001234567:</code>",
         parse_mode="HTML"
     )
 
@@ -237,7 +245,7 @@ async def phone_entered(message: Message, state: FSMContext):
     if not re.fullmatch(r"\+\d{10,15}", phone):
         await message.answer(
             "Введите номер в международном формате.\n"
-            "Например: +380991234567"
+            "Например: +79001234567:"
         )
         return
 
@@ -274,7 +282,7 @@ async def confirm_yes(callback: CallbackQuery, state: FSMContext):
     await callback.message.edit_text(
         "✅ <b>Спасибо за регистрацию!</b>\n\n"
         "Ваши данные успешно сохранены. "
-        "Представитель свяжется с вами в рабочее время.",
+        "Представитель свяжется с вами в рабочее время с 9:00 - 19:00 МСК. Ожидайте звонка.",
         parse_mode="HTML"
     )
     await callback.answer()
